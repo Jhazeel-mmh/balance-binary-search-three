@@ -175,6 +175,25 @@ class Tree{
         }
     };
 
+    find(value){
+        return this.__findRecur(value, this.root);
+    };
+
+    __findRecur(value, node){
+        if (node === null){
+            return null;
+        }
+
+        if (node.data === value){
+            return node;
+        }
+
+        if (value < node.data){
+            return this.__findRecur(value, node.left);
+        } else if (value > node.data){
+            return this.__findRecur(value, node.right);
+        }
+    };
 }
 
 const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
