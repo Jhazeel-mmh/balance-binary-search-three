@@ -194,6 +194,23 @@ class Tree{
             return this.__findRecur(value, node.right);
         }
     };
+
+    levelOrder(callback){
+        if (typeof callback !== 'function') {
+            throw new TypeError('The argument should be a function');
+        }
+        if (this.root === null) return;
+        let frontIndex = 0;
+        const queue = [];
+        queue.push(this.root);
+        while (frontIndex < queue.length){
+            let curNode = queue[frontIndex];
+            callback(curNode);
+            if (curNode.left !== null) queue.push(curNode.left);
+            if (curNode.right !== null) queue.push(curNode.right);
+            frontIndex++;
+        }
+    };
 }
 
 const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
