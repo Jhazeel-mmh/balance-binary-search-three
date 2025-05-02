@@ -4,7 +4,7 @@ class Node{
         this.left = null;
         this.right = null;
     }
-}
+};
 
 class Tree{
     constructor(array){
@@ -67,7 +67,7 @@ class Tree{
             frontIndex++;
         }
         return root;
-    }
+    };
 
     prettyPrint(){
         this.__prettyPrint(this.root)
@@ -85,9 +85,66 @@ class Tree{
           this.__prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
         }
       };
-     
+    
+      insert(value){
+        this.root = this.__insertRecur(value, this.root);
+      }
+
+      __insertRecur(value, node){
+
+        if (node === null){
+            return new Node(value);
+        }
+
+        if (node.data === value){
+            return node;
+        }
+        
+        if (value < node.data){
+            node.left = this.__insertRecur(value, node.left);
+        }
+
+        if (value > node.data){
+            node.right = this.__insertRecur(value, node.right);
+        }
+
+        return node;
+      }
+
+      /*__insertRecur(value, node){
+        let right = false, left = false;
+
+        if (value <= node.data){
+            left = !left;
+        }
+
+        if (value > node.data){
+            right = !right;
+        }
+
+        if (left){
+            if (node.left === null){
+                node.left = new Node(value);
+                return;
+            }
+            this.__insertRecur(value, node.left);
+        }
+
+        if (right){
+            if (node.right === null){
+                node.right = new Node(value);
+            }
+            this.__insertRecur(value, node.right);
+        }
+      }*/
+    
 }
 
 const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 
+myBbst.prettyPrint()
+
+myBbst.insert(2);
+
+console.log("------------------------------------------------")
 myBbst.prettyPrint()
