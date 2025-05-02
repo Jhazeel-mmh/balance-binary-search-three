@@ -86,11 +86,11 @@ class Tree{
         }
       };
     
-      insert(value){
+    insert(value){
         this.root = this.__insertRecur(value, this.root);
       }
 
-      __insertRecur(value, node){
+    __insertRecur(value, node){
 
         if (node === null){
             return new Node(value);
@@ -111,7 +111,7 @@ class Tree{
         return node;
       }
 
-      /*__insertRecur(value, node){
+    /*__insertRecur(value, node){
         let right = false, left = false;
 
         if (value <= node.data){
@@ -136,8 +136,45 @@ class Tree{
             }
             this.__insertRecur(value, node.right);
         }
-      }*/
+    }*/
     
+    deleteItem(value){
+        this.root = __deleteItemRecur(value, this.root);
+    };
+
+    __getSucc(node){
+        let cur = node.right;
+        while (cur !== null && cur.left !== null){
+            cur = cur.left;
+        }
+        return cur;
+    };
+     
+    __deleteItemRecur(value, node){
+        if (node === null){
+            return node;
+        }
+
+        if (value < node.data){
+            node.left = this.__deleteItemRecur(value, node.left);
+        } else if (value > node.data){
+            node.right = this.__deleteItemRecur(value, node.right);
+        } else {
+
+            if (node.left === null){
+                return node.right;
+            }
+
+            if (node.right === null){
+                return node.left;
+            }
+
+            const succ = this.__getSucc(node);
+            node.data = succ.data;
+            node.right = this.__deleteItemRecur(succ.data, node.right);
+        }
+    };
+
 }
 
 const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
