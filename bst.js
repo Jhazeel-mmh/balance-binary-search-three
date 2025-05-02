@@ -211,6 +211,51 @@ class Tree{
             frontIndex++;
         }
     };
+
+    inOrder(callback){
+        if (typeof callback !== 'function') {
+            throw new TypeError('The argument should be a function');
+        }
+        if (this.root === null) return;
+        this.__inOrderRecur(callback, this.root);
+    }
+
+    preOrder(callback){
+        if (typeof callback !== 'function') {
+            throw new TypeError('The argument should be a function');
+        }
+        if (this.root === null) return;
+        this.__preOrderRecur(callback, this.root);
+    }
+
+    postOrder(callback){
+        if (typeof callback !== 'function') {
+            throw new TypeError('The argument should be a function');
+        }
+        if (this.root === null) return;
+        this.__postOrderRecur(callback, this.root);
+    }
+
+    __inOrderRecur(callback, node){
+        if (node === null) return;
+        this.__inOrderRecur(callback, node.left);
+        callback(node);
+        this.__inOrderRecur(callback, node.right);
+    }
+
+    __preOrderRecur(callback, node){
+        if (node === null) return;
+        callback(node);
+        this.__preOrderRecur(callback, node.left);
+        this.__preOrderRecur(callback, node.right);
+    }
+
+    __postOrderRecur(callback, node){
+        if (node === null) return;
+        callback(node);
+        this.__postOrderRecur(callback, node.left);
+        this.__postOrderRecur(callback, node.right);
+    }
 }
 
 const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
