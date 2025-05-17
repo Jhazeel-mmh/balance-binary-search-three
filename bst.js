@@ -257,6 +257,23 @@ class Tree{
         this.__postOrderRecur(callback, node.right);
     }
 
+    height(value){
+        const node = this.find(value);
+        if (node === null) return null;
+        return this.__heightRecur(node);
+    }
+
+    __heightRecur(node){
+        if (node === null) return -1;
+
+        if (node.right === null && node.left === null) return 0;
+
+        let leftSubTree = this.__heightRecur(node.left);
+        let rightSubTree = this.__heightRecur(node.right);
+
+        return 1 + Math.max(leftSubTree, rightSubTree);
+    }
+
     depth(value){
         let count = 0;
         return __depthRecur(value, count, this.root)
@@ -282,7 +299,7 @@ class Tree{
 const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 
 myBbst.prettyPrint()
-
+ 
 myBbst.insert(2);
 
 console.log("------------------------------------------------")
