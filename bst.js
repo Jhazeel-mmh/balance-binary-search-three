@@ -256,6 +256,27 @@ class Tree{
         this.__postOrderRecur(callback, node.left);
         this.__postOrderRecur(callback, node.right);
     }
+
+    depth(value){
+        let count = 0;
+        return __depthRecur(value, count, this.root)
+    }
+
+    __depthRecur(value, count, node){
+        if (node === null) return null;
+        if (value === node.data){
+            return count;
+        }
+
+        if (value < node.data){
+                        return this.__depthRecur(value, count + 1, node.left);
+        } 
+
+        if (value > node.data){
+                        return this.__depthRecur(value, count + 1, node.right)
+        }
+    }
+    
 }
 
 const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
