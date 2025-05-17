@@ -276,7 +276,7 @@ class Tree{
 
     depth(value){
         let count = 0;
-        return __depthRecur(value, count, this.root)
+        return __depthRecur(value, count, this.root);
     }
 
     __depthRecur(value, count, node){
@@ -286,12 +286,28 @@ class Tree{
         }
 
         if (value < node.data){
-                        return this.__depthRecur(value, count + 1, node.left);
+            return this.__depthRecur(value, count + 1, node.left);
         } 
 
         if (value > node.data){
-                        return this.__depthRecur(value, count + 1, node.right)
+            return this.__depthRecur(value, count + 1, node.right);
         }
+    }
+
+    isBalanced(){
+        return __isBalancedRecur(this.root);
+    }
+
+    __isBalancedRecur(node){
+        if (node === null) return true;
+
+        let leftHeight = this.__heightRecur(node.left);
+        let rightHeight = this.__heightRecur(node.right);
+
+        let difference = Math.abs(leftHeight - rightHeight);
+        if (difference > 1) return false;
+        
+        return this.__isBalancedRecur(node.left) && this.__isBalancedRecur(node.right);
     }
     
 }
