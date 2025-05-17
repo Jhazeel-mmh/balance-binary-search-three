@@ -295,7 +295,7 @@ class Tree{
     }
 
     isBalanced(){
-        return __isBalancedRecur(this.root);
+        return this.__isBalancedRecur(this.root);
     }
 
     __isBalancedRecur(node){
@@ -306,13 +306,18 @@ class Tree{
 
         let difference = Math.abs(leftHeight - rightHeight);
         if (difference > 1) return false;
-        
+
         return this.__isBalancedRecur(node.left) && this.__isBalancedRecur(node.right);
     }
     
+    rebalance(){
+        const array = [];
+        this.inOrder(node => array.push(node.data));
+        this.root = this.buildTree(array);
+    }
 }
 
-const myBbst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+const myBbst = new Tree([2, 4, 6, 8, 10, 12, 14,33, 33, 45])
 
 myBbst.prettyPrint()
  
@@ -320,3 +325,4 @@ myBbst.insert(2);
 
 console.log("------------------------------------------------")
 myBbst.prettyPrint()
+console.log(myBbst.isBalanced())
